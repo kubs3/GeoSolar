@@ -1,8 +1,8 @@
-# GeoSolar
+# GeoSolar (Portfolio Project)
 
-GeoSolar is an open-source web application designed to calculate the solar potential of building roofs using interactive maps and OpenStreetMap data. 
+GeoSolar is a comprehensive B2B lead-generation tool designed specifically for companies that install solar panels. This project serves as a showcase of my web development capabilities and represents a ready-to-use solution for capturing highly qualified customer leads.
 
-It provides an intuitive map interface for users to click on any building and instantly receive an estimation of its roof area, orientation, and potential solar power capacity (kWp). Users can also search for addresses directly and submit a lead form to request a personalized solar installation offer.
+It provides an intuitive map interface for prospective customers to click on their building and instantly receive an estimation of its roof area, orientation, and potential solar power capacity (kWp). Customers can then submit their contact details along with the calculated roof data directly to the solar installation company.
 
 ![GeoSolar App](https://raw.githubusercontent.com/username/GeoSolar/main/screenshot.png)
 
@@ -57,4 +57,4 @@ The project is structured as a monorepo containing two main components:
 * **Data Sources:** OpenStreetMap (Overpass API for building geometry, Nominatim for address search)
 
 ## License
-MIT License. Feel free to use and modify the code.
+This project is showcased as part of my professional freelance portfolio. It is **not** licensed for open-source redistribution or commercial use without permission. If you are a solar installation company interested in using or customizing this tool for your business, please contact me!
