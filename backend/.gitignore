@@ -1,0 +1,9 @@
+# .NET Core
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+# Naše tajné české poznámky - Tyto se na GitHub nedostanou!
+Poznamky_Logika.md

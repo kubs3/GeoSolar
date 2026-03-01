@@ -1,0 +1,45 @@
+<div class="widget-container">
+    <div class="search-panel">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Vyhledat adresu (např. Václavské náměstí 1, Praha)"
+            (keyup.enter)="searchAddress()" />
+        <button (click)="searchAddress()" [disabled]="isSearching">
+            {{ isSearching ? 'Hledám...' : 'Hledat' }}
+        </button>
+    </div>
+
+    <div id="map" class="map-container"></div>
+
+    @if (isLoading) {
+    <div class="result-panel loading-panel">
+        <div class="spinner"></div>
+        <p>Hledám budovu a počítám potenciál...</p>
+    </div>
+    }
+
+    @if (result && !isLoading) {
+    <div class="result-panel">
+        <h3>🔍 Odhad pro vaši střechu</h3>
+        <div class="stats">
+            <div class="stat-item">
+                <span class="label">Plocha střechy:</span>
+                <span class="value">{{ result.area }} m²</span>
+            </div>
+            <div class="stat-item">
+                <span class="label">Odhadovaný výkon:</span>
+                <span class="value">{{ result.estimated_kWp }} kWp</span>
+            </div>
+            <div class="stat-item">
+                <span class="label">Orientace střešních rovin:</span>
+                <span class="value">{{ result.orientationText }} ({{ result.roofPitch1 }}° a {{ result.roofPitch2
+                    }}°)</span>
+            </div>
+        </div>
+
+        <button class="btn-lead" (click)="isLeadFormVisible = true">Mám zájem o nabídku</button>
+    </div>
+    }
+</div>
+
+@if (isLeadFormVisible) {
+<app-lead-form [roofData]="result" (close)="isLeadFormVisible = false"></app-lead-form>
+}

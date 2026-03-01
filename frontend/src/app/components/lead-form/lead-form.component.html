@@ -1,0 +1,40 @@
+<div class="lead-overlay">
+    <div class="lead-card">
+
+        @if (!submitted) {
+        <h3>Získat nezávaznou nabídku</h3>
+        <p>Vyplňte údaje a my vám zašleme přesnou kalkulaci pro vaši střechu.</p>
+
+        <form #f="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label>Jméno a příjmení</label>
+                <input type="text" name="name" [(ngModel)]="leadData.name" required placeholder="Jan Novák">
+            </div>
+
+            <div class="form-group">
+                <label>E-mail</label>
+                <input type="email" name="email" [(ngModel)]="leadData.email" required placeholder="jan@seznam.cz">
+            </div>
+
+            <div class="form-group">
+                <label>Telefon</label>
+                <input type="tel" name="phone" [(ngModel)]="leadData.phone" required placeholder="+420 777 000 000">
+            </div>
+
+            <div class="actions">
+                <button type="button" class="btn-cancel" (click)="close.emit()">Zrušit</button>
+                <button type="submit" class="btn-submit" [disabled]="!f.valid || isSending">
+                    {{ isSending ? 'Odesílám...' : 'Odeslat poptávku' }}
+                </button>
+            </div>
+        </form>
+
+        } @else {
+        <div class="success-msg">
+            🎉 <strong>Děkujeme!</strong><br>
+            Vaše údaje byly odeslány. Solární specialista se vám brzy ozve.
+        </div>
+        }
+
+    </div>
+</div>
