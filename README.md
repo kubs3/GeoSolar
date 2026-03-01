@@ -4,7 +4,16 @@ GeoSolar is a comprehensive B2B lead-generation tool designed specifically for c
 
 It provides an intuitive map interface for prospective customers to click on their building and instantly receive an estimation of its roof area, orientation, and potential solar power capacity (kWp). Customers can then submit their contact details along with the calculated roof data directly to the solar installation company.
 
-![GeoSolar App](https://raw.githubusercontent.com/username/GeoSolar/main/screenshot.png)
+![GeoSolar Demo](docs/assets/demo.webp)
+
+<details>
+<summary>Click to view Lead Form</summary>
+<br>
+<img src="docs/assets/screenshot.png" alt="Lead Form Modal" width="500"/>
+</details>
+
+## 🎯 Business Value
+Sales representatives in the solar industry spend hours manually estimating roof areas on maps. This application automates the process. A customer can search an address anywhere in the world, and the service returns the real building footprint, actual square meter area (via Smart CRS Routing), primary roof orientation (Azimuth), and an estimated solar capacity (kWp).
 
 ## Features
 - **Interactive Map:** Powered by Leaflet and OpenStreetMap.
@@ -52,9 +61,15 @@ The project is structured as a monorepo containing two main components:
 ---
 
 ## Technical Stack
-* **Frontend:** Angular, TypeScript, SCSS, Leaflet
-* **Backend:** C#, ASP.NET Core Minimal APIs, NetTopologySuite, ProjNet
+* **Frontend:** Angular 17, TypeScript, SCSS, Leaflet
+* **Backend:** C# 12, ASP.NET Core 8 Minimal APIs, NetTopologySuite, ProjNet, Polly
 * **Data Sources:** OpenStreetMap (Overpass API for building geometry, Nominatim for address search)
+
+## 🏗️ Extensibility & Architecture
+This project demonstrates the intersection of **GIS (Geographic Information Systems)** and solid **Software Engineering**:
+- **Smart CRS Router (Global Scale):** Calculating accurate square meters from spherical GPS coordinates requires local planar projections. The backend implements a dynamic routing system (`ProjNET`) that automatically uses **S-JTSK (EPSG:5514)** for millimeter precision in CZ/SK, or calculates the correct **UTM Zone** for the rest of the world.
+- **Dependency Injection & Swappable Sources:** Core spatial logic is decoupled from external APIs. Upgrading from the current free OpenStreetMap source to premium data (like the **Google Solar API** or **Local Cadastral Data**) requires zero changes to mathematical logic.
+- **Fault Tolerance:** External HTTP calls are wrapped in `Polly` Wait-and-Retry policies to gracefully handle 504 Gateway Timeout or 502 Bad Gateway errors.
 
 ## License
 This project is showcased as part of my professional freelance portfolio. It is **not** licensed for open-source redistribution or commercial use without permission. If you are a solar installation company interested in using or customizing this tool for your business, please contact me!
