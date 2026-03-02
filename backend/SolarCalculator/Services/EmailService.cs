@@ -26,19 +26,21 @@ public class EmailService : IEmailService
         {
             using var client = new SmtpClient(_settings.Host, _settings.Port)
             {
+                UseDefaultCredentials = false,
                 Credentials = new NetworkCredential(_settings.Username, _settings.Password),
                 EnableSsl = true
             };
 
             var mailMessage = new MailMessage
             {
-                From = new MailAddress(_settings.FromAddress),
+                From = new MailAddress(_settings.FromAddress, "GeoSolar App"),
                 Subject = $"New Solar Lead: {request.Name}",
                 Body = $"A new lead has been submitted!\n\nName: {request.Name}\nEmail: {request.Email}\nPhone: {request.Phone}\nRoof Area: {request.RoofArea} sqm\nOrientation: {request.Orientation}\nEst. Power: {request.EstimatedKWp} kWp",
                 IsBodyHtml = false,
             };
 
-            mailMessage.To.Add(new MailAddress("jakubkohn@gmail.com", "Já jako firma"));
+            _logger.LogInformation("Attempting to send email FROM: {FromAddress} TO: jakubkohn@gmail.com", _settings.FromAddress);
+            mailMessage.To.Add(new MailAddress("jakubkohn@gmail.com"));
             await client.SendMailAsync(mailMessage);
             _logger.LogInformation("Email successfully sent for lead {Name}.", request.Name);
         }
