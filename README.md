@@ -31,7 +31,7 @@ The project is structured as a monorepo containing two main components:
 ## 🚀 Getting Started
 
 ### 1. Backend Setup (ASP.NET Core)
-1. Ensure you have the [.NET 8.0 SDK](https://dotnet.microsoft.com/download) installed.
+1. Ensure you have the [.NET 10.0 SDK](https://dotnet.microsoft.com/download) installed.
 2. Navigate to the backend directory:
    ```bash
    cd backend
@@ -62,7 +62,7 @@ The project is structured as a monorepo containing two main components:
 
 ## Technical Stack
 * **Frontend:** Angular 17, TypeScript, SCSS, Leaflet
-* **Backend:** C# 12, ASP.NET Core 8 Minimal APIs, NetTopologySuite, ProjNet, Polly
+* **Backend:** C# 12, ASP.NET Core 10 Minimal APIs, NetTopologySuite, ProjNet, Polly
 * **Data Sources:** OpenStreetMap (Overpass API for building geometry, Nominatim for address search)
 
 ## 🏗️ Extensibility & Architecture
@@ -72,4 +72,4 @@ This project demonstrates the intersection of **GIS (Geographic Information Syst
 - **Fault Tolerance:** External HTTP calls are wrapped in `Polly` Wait-and-Retry policies to gracefully handle 504 Gateway Timeout or 502 Bad Gateway errors.
 
 ## License
-This project is showcased as part of my professional freelance portfolio. It is **not** licensed for open-source redistribution or commercial use without permission. If you are a solar installation company interested in using or customizing this tool for your business, please contact me!
+This project is showcased as part of my professional portfolio. It is **not** licensed for open-source redistribution or commercial use without permission. If you are a solar installation company interested in using or customizing this tool for your business, please contact me!
