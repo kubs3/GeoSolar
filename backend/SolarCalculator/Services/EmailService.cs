@@ -34,12 +34,11 @@ public class EmailService : IEmailService
             {
                 From = new MailAddress(_settings.FromAddress),
                 Subject = $"New Solar Lead: {request.Name}",
-                Body = $"A new lead has been submitted!\n\nName: {request.Name}\nEmail: {request.Email}\nPhone: {request.Phone}\nRoof Area: {request.RoofData.AreaSqm} sqm",
+                Body = $"A new lead has been submitted!\n\nName: {request.Name}\nEmail: {request.Email}\nPhone: {request.Phone}\nRoof Area: {request.RoofArea} sqm\nOrientation: {request.Orientation}\nEst. Power: {request.EstimatedKWp} kWp",
                 IsBodyHtml = false,
             };
 
-            mailMessage.To.Add(_settings.FromAddress); // Send to ourselves as the company
-
+            mailMessage.To.Add(new MailAddress("jakubkohn@gmail.com", "Já jako firma"));
             await client.SendMailAsync(mailMessage);
             _logger.LogInformation("Email successfully sent for lead {Name}.", request.Name);
         }
