@@ -47,7 +47,7 @@ export class LeadFormComponent {
       phone: this.leadData.phone,
       roofArea: this.roofData.area,
       orientation: this.roofData.orientationText,
-      estimatedKWp: this.roofData.estimated_kWp
+      estimatedKWp: this.roofData.estimated_kWP
     };
 
     // Call the backend to send the email
