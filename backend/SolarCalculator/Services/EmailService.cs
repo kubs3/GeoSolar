@@ -39,8 +39,8 @@ public class EmailService : IEmailService
                 IsBodyHtml = false,
             };
 
-            _logger.LogInformation("Attempting to send email FROM: {FromAddress} TO: jakubkohn@gmail.com", _settings.FromAddress);
-            mailMessage.To.Add(new MailAddress("jakubkohn@gmail.com"));
+            _logger.LogInformation("Attempting to send email FROM: {FromAddress} TO: {ToAddress}", _settings.FromAddress, _settings.FromAddress);
+            mailMessage.To.Add(new MailAddress(_settings.FromAddress));
             await client.SendMailAsync(mailMessage);
             _logger.LogInformation("Email successfully sent for lead {Name}.", request.Name);
         }
