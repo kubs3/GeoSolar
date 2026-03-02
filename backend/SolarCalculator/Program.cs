@@ -10,6 +10,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCors(opt => opt.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
 
 // CUSTOM SERVICES
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 builder.Services.AddScoped<ISolarCalculationService, SolarCalculationService>();
 builder.Services.AddScoped<ISolarLeadService, SolarLeadService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
