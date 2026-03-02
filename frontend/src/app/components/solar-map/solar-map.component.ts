@@ -65,12 +65,12 @@ export class SolarMapComponent implements AfterViewInit {
     this.result = null;
 
     this.solarApi.calculateSolarPotential(lat, lng).subscribe({
-      next: (data) => {
+      next: (data: RoofData) => {
         this.result = data;
         this.isLoading = false;
         console.log('Data from backend:', data);
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error('Error communicating with backend:', err);
         this.isLoading = false;
         alert('Error communicating with the backend (possibly failed to find a building).');
