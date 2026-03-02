@@ -4,7 +4,7 @@ GeoSolar is a comprehensive B2B lead-generation tool designed specifically for c
 
 It provides an intuitive map interface for prospective customers to click on their building and instantly receive an estimation of its roof area, orientation, and potential solar power capacity (kWp). Customers can then submit their contact details along with the calculated roof data directly to the solar installation company.
 
-![GeoSolar Demo](docs/assets/demo_premium_final.webp)
+![GeoSolar Demo](docs/assets/demo_premium_koruna.webp)
 
 <details>
 <summary>Click to view Lead Form</summary>
