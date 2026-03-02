@@ -1,41 +1,71 @@
 <div class="widget-container">
-    <div class="search-panel">
+    <!-- Elevated Glass Search Bar -->
+    <div class="search-panel glass-panel">
+        <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
         <input type="text" [(ngModel)]="searchQuery" placeholder="Vyhledat adresu (např. Václavské náměstí 1, Praha)"
             (keyup.enter)="searchAddress()" />
-        <button (click)="searchAddress()" [disabled]="isSearching">
-            {{ isSearching ? 'Hledám...' : 'Hledat' }}
+        <button class="btn-primary" (click)="searchAddress()" [disabled]="isSearching">
+            @if (isSearching) {
+            <span class="btn-spinner"></span>
+            } @else {
+            <span>Hledat</span>
+            }
         </button>
     </div>
 
+    <!-- Fullscreen Map Base -->
     <div id="map" class="map-container"></div>
 
+    <!-- Loading State Overlay -->
     @if (isLoading) {
-    <div class="result-panel loading-panel">
-        <div class="spinner"></div>
-        <p>Hledám budovu a počítám potenciál...</p>
+    <div class="result-panel glass-panel loading-panel slide-up">
+        <div class="spinner-modern"></div>
+        <p>Analyzuji solární potenciál budovy...</p>
     </div>
     }
 
+    <!-- Result Data Overlay -->
     @if (result && !isLoading) {
-    <div class="result-panel">
-        <h3>🔍 Odhad pro vaši střechu</h3>
-        <div class="stats">
-            <div class="stat-item">
-                <span class="label">Plocha střechy:</span>
-                <span class="value">{{ result.area }} m²</span>
+    <div class="result-panel glass-panel slide-up">
+        <div class="panel-header">
+            <h3>Odhad pro vaši střechu</h3>
+            <div class="eco-badge">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg>
+                Úspora energie
             </div>
-            <div class="stat-item">
-                <span class="label">Odhadovaný výkon:</span>
-                <span class="value">{{ result.estimated_kWp }} kWp</span>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="label">Plocha střechy</span>
+                <span class="value">{{ result.area }} <small>m²</small></span>
             </div>
-            <div class="stat-item">
-                <span class="label">Orientace střešních rovin:</span>
+            <div class="stat-card">
+                <span class="label">Odhadovaný výkon</span>
+                <span class="value highlight">{{ result.estimated_kWp }} <small>kWp</small></span>
+            </div>
+            <div class="stat-card full-width">
+                <span class="label">Orientace střešních rovin</span>
                 <span class="value">{{ result.orientationText }} ({{ result.roofPitch1 }}° a {{ result.roofPitch2
                     }}°)</span>
             </div>
         </div>
 
-        <button class="btn-lead" (click)="isLeadFormVisible = true">Mám zájem o nabídku</button>
+        <button class="btn-cta" (click)="isLeadFormVisible = true">
+            Mám zájem o nabídku
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+        </button>
     </div>
     }
 </div>
