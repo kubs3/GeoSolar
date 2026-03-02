@@ -10,7 +10,7 @@ export interface RoofData {
     roofPitch1: number;
     roofPitch2: number;
     orientationText: string;
-    estimated_kWp: number;
+    estimated_kWP: number;
     message?: string;
 }
 
