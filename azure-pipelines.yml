@@ -1,0 +1,47 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+# 1. Instalace .NET SDK
+- task: UseDotNet@2
+  displayName: 'Install .NET 10'
+  inputs:
+    version: '10.x'
+
+# 2. Restore balíčků (NuGet)
+- task: DotNetCoreCLI@2
+  displayName: 'Restore NuGet Packages'
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+
+# 3. Build projektu
+- task: DotNetCoreCLI@2
+  displayName: 'Build Project'
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+# 4. SPUŠTĚNÍ TESTŮ 🚀
+- task: DotNetCoreCLI@2
+  displayName: 'Run Unit Tests'
+  inputs:
+    command: 'test'
+    projects: '**/*Tests/*.csproj' # Předpokládá, že máš testy v samostatném projektu
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+
+# 5. Publish (pokud testy projdou)
+- task: DotNetCoreCLI@2
+  condition: succeeded() # Spustí se jen, když testy projdou
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: true
