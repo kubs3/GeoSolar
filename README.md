@@ -4,7 +4,7 @@ RoofScan is a comprehensive B2B lead-generation tool designed specifically for c
 
 It provides an intuitive map interface for prospective customers to click on their building and instantly receive an estimation of its roof area, orientation, and potential solar power capacity (kWp). Customers can then submit their contact details along with the calculated roof data directly to the solar installation company.
 
-![RoofScan Demo](docs/assets/demo_premium_short.webp)
+![RoofScan Demo](docs/assets/demo_roofscan.webp)
 
 <details>
 <summary>Click to view Lead Form</summary>
@@ -67,7 +67,7 @@ The project is structured as a monorepo containing two main components:
 
 ## 🏗️ Extensibility & Architecture
 This project demonstrates the intersection of **GIS (Geographic Information Systems)** and solid **Software Engineering**:
-- **Smart CRS Router (Global Scale):** Calculating accurate square meters from spherical GPS coordinates requires local planar projections. The backend implements a dynamic routing system (`ProjNET`) that automatically uses **S-JTSK (EPSG:5514)** for millimeter precision in CZ/SK, or calculates the correct **UTM Zone** for the rest of the world.
+- **Smart CRS Router (Global Scale):** Calculating accurate square meters from spherical GPS coordinates requires local planar projections. The backend implements a dynamic routing system (`ProjNET`) that automatically uses **S-JTSK (EPSG:5514)** for millimeter precision in CZ/SK, or calculates the correct **UTM Zone** for the rest of the world. *(Note: The public GitHub repository uses a mocked deterministic calculation service to protect proprietary spatial algorithms, while the original repository contains the full geometric implementation).*
 - **Dependency Injection & Swappable Sources:** Core spatial logic is decoupled from external APIs. Upgrading from the current free OpenStreetMap source to premium data (like the **Google Solar API** or **Local Cadastral Data**) requires zero changes to mathematical logic.
 - **Fault Tolerance:** External HTTP calls are wrapped in `Polly` Wait-and-Retry policies to gracefully handle 504 Gateway Timeout or 502 Bad Gateway errors.
 
