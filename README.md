@@ -4,7 +4,7 @@ RoofScan is a comprehensive B2B lead-generation tool designed specifically for c
 
 It provides an intuitive map interface for prospective customers to click on their building and instantly receive an estimation of its roof area, orientation, and potential solar power capacity (kWp). Customers can then submit their contact details along with the calculated roof data directly to the solar installation company.
 
-![RoofScan Demo](docs/assets/demo_roofscan_v2.webp)
+![RoofScan Demo](docs/assets/demo_roofscan_full.webp)
 
 <details>
 <summary>Click to view Lead Form</summary>
