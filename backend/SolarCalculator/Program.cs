@@ -11,7 +11,7 @@ builder.Services.AddCors(opt => opt.AddDefaultPolicy(p => p.AllowAnyOrigin().All
 
 // CUSTOM SERVICES
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
-builder.Services.AddScoped<ISolarCalculationService, SolarCalculationService>();
+builder.Services.AddScoped<ISolarCalculationService, MockSolarCalculationService>();
 builder.Services.AddScoped<ISolarLeadService, SolarLeadService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddHttpClient("OsmClient", c => c.DefaultRequestHeaders.Add("User-Agent", "SolarWidget/1.0"));
