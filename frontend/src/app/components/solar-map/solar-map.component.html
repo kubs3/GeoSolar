@@ -20,11 +20,35 @@
     <!-- Fullscreen Map Base -->
     <div id="map" class="map-container"></div>
 
+    <!-- Map Style Toggle -->
+    <div class="style-toggle glass-panel">
+        <button [class.active]="currentStyle === 'HYBRID'" (click)="setMapStyle('HYBRID')">Satelitní (Hybrid)</button>
+        <button [class.active]="currentStyle === 'STREETS'" (click)="setMapStyle('STREETS')">Základní (Ulice)</button>
+    </div>
+
     <!-- Loading State Overlay -->
     @if (isLoading) {
     <div class="result-panel glass-panel loading-panel slide-up">
         <div class="spinner-modern"></div>
         <p>Analyzuji solární potenciál budovy...</p>
+    </div>
+    }
+
+    <!-- Error State Overlay -->
+    @if (errorMessage) {
+    <div class="error-panel glass-panel slide-up">
+        <div class="error-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+        </div>
+        <div class="error-content">
+            <h4>Chyba</h4>
+            <p>{{ errorMessage }}</p>
+        </div>
     </div>
     }
 

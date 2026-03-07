@@ -57,8 +57,8 @@
     transition: var(--transition-smooth);
 
     &:focus-within {
-        box-shadow: 0 15px 50px -12px rgba(16, 185, 129, 0.25);
-        border-color: rgba(16, 185, 129, 0.5);
+        box-shadow: 0 15px 50px -12px rgba(14, 165, 233, 0.25);
+        border-color: rgba(14, 165, 233, 0.5);
     }
 
     .search-icon {
@@ -98,7 +98,7 @@
         &:hover:not(:disabled) {
             background: var(--color-primary-hover);
             transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
         }
 
         &:disabled {
@@ -114,6 +114,41 @@
             border-top: 2px solid white;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
+        }
+    }
+}
+
+/* =========================================================================
+   Map Style Toggle (Floating Bottom/Left)
+   ========================================================================= */
+.style-toggle {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    z-index: 1000;
+    display: flex;
+    padding: 6px;
+    gap: 4px;
+
+    button {
+        background: transparent;
+        color: var(--color-text-main);
+        border: none;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: calc(var(--radius-sm) - 2px);
+        transition: var(--transition-smooth);
+
+        &.active {
+            background: var(--color-primary);
+            color: white;
+            box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
+        }
+
+        &:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.4);
         }
     }
 }
@@ -147,7 +182,7 @@
             display: flex;
             align-items: center;
             gap: 4px;
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(14, 165, 233, 0.1);
             color: var(--color-primary-hover);
             padding: 6px 10px;
             border-radius: 20px;
@@ -247,7 +282,7 @@
 .spinner-modern {
     width: 48px;
     height: 48px;
-    border: 3px solid rgba(16, 185, 129, 0.1);
+    border: 3px solid rgba(14, 165, 233, 0.1);
     border-radius: 50%;
     border-top-color: var(--color-primary);
     animation: spin 1s cubic-bezier(0.55, 0.15, 0.45, 0.85) infinite;
@@ -272,5 +307,50 @@
 
     50% {
         opacity: 1;
+    }
+}
+
+/* =========================================================================
+   Error Panel (Floating Top/Right)
+   ========================================================================= */
+.error-panel {
+    position: absolute;
+    top: 90px;
+    right: 40px;
+    width: 380px;
+    padding: 16px 24px;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(254, 226, 226, 0.85);
+    /* Light red tint */
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    box-shadow: 0 10px 25px rgba(239, 68, 68, 0.15);
+
+    .error-icon {
+        color: #EF4444;
+        /* Tailwind Red-500 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .error-content {
+        h4 {
+            margin: 0 0 4px 0;
+            color: #991B1B;
+            /* Tailwind Red-800 */
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        p {
+            margin: 0;
+            color: #B91C1C;
+            /* Tailwind Red-700 */
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
     }
 }

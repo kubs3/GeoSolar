@@ -1,3 +1,4 @@
+using NetTopologySuite.Geometries;
 using SolarCalculator.Models;
 using System.Text.Json.Nodes;
 
@@ -31,15 +32,47 @@ public class SolarLeadService : ISolarLeadService
         var elements = response?["elements"] as JsonArray;
         if (elements == null || elements.Count == 0) return null;
 
-        var geometry = elements[0]["geometry"] as JsonArray;
-        var coords = geometry!.Select(n => new double[] { (double)n["lon"]!, (double)n["lat"]! }).ToList();
+        JsonArray? bestGeometry = null;
+        double minDistance = double.MaxValue;
+        var geometryFactory = new GeometryFactory();
+        var clickPoint = geometryFactory.CreatePoint(new Coordinate(lon, lat));
+
+        foreach (var element in elements)
+        {
+            var geometry = element["geometry"] as JsonArray;
+            if (geometry == null || geometry.Count < 3) continue;
+
+            var coordsList = geometry.Select(n => new Coordinate((double)n["lon"]!, (double)n["lat"]!)).ToList();
+            if (!coordsList[0].Equals2D(coordsList[^1])) coordsList.Add(coordsList[0]);
+
+            var poly = geometryFactory.CreatePolygon(coordsList.ToArray());
+
+            // Exact match if the clicked point falls within the building polygon
+            if (poly.Contains(clickPoint))
+            {
+                bestGeometry = geometry;
+                break;
+            }
+
+            // Fallback: finding the closest building
+            double dist = poly.Distance(clickPoint);
+            if (dist < minDistance)
+            {
+                minDistance = dist;
+                bestGeometry = geometry;
+            }
+        }
+
+        if (bestGeometry == null) return null;
+
+        var coords = bestGeometry.Select(n => new double[] { (double)n["lon"]!, (double)n["lat"]! }).ToList();
 
         var geoResult = _geoService.CalculateAreaAndOrientation(coords);
 
-        return FormatResult(geoResult.Area, geoResult.Azimuth);
+        return FormatResult(geoResult.Area, geoResult.Azimuth, coords);
     }
 
-    private SolarPotentialResult FormatResult(double area, double azimuth)
+    private SolarPotentialResult FormatResult(double area, double azimuth, List<double[]> geometry)
     {
         double p1 = (azimuth + 90) % 360;
         double p2 = (azimuth + 270) % 360;
@@ -50,7 +83,8 @@ public class SolarLeadService : ISolarLeadService
             Math.Round(p1, 1),
             Math.Round(p2, 1),
             $"{GetDir(p1)} / {GetDir(p2)}",
-            Math.Round((area * 0.6) / 5.0, 2)
+            Math.Round((area * 0.6) / 5.0, 2),
+            geometry
         );
     }
 
