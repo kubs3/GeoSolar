@@ -1,4 +1,4 @@
-# GeoSolar
+# RoofScan
 
 RoofScan is a comprehensive B2B lead-generation tool designed specifically for companies that install solar panels. This project serves as a showcase of my web development capabilities and represents a ready-to-use solution for capturing highly qualified customer leads.
 
